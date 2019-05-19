@@ -4,7 +4,12 @@
     Open questions
         * If all money is lost do we keep betting 0.5 or is the game considered lost?
         * Do we bet 0.5 each time or we bet everything as long as there is something?
+*/
 
+const getRandomNumber = () => Math.floor( Math.random() * 6 ) + 1;
+
+
+/*
     Assumptions:
         * All in for every bet as long as there is money left
         * If all money is lost we start over with 0.5
@@ -42,13 +47,19 @@ const calculateWinnings = (money) => {
     return {result: money, lost: lost};
 }
 
-const calculateWinnings2 = (money) => {
+/*
+    Assumptions:
+        * Only bet 0.5 each time
+        * If all money is lost we start over with 0.5
+*/
+const calculateWinnings2 = (money, baseBet, times) => {
     let lost = 0;
-    let baseBet = 0.5
     
-    for (let x = 0; x < 10 ; x++) {
+    for (let x = 0; x < times ; x++) {
+        // If we ran out of money, start over with 0.5
         if(money <= 0)
             money = 0.5;
+
         let number = getRandomNumber() +  getRandomNumber()
         switch(number) {
             case 12:
@@ -67,15 +78,8 @@ const calculateWinnings2 = (money) => {
             default:
                 break;
         }
-        console.log(number, money, lost)
-   
+        // console.log(number, money, lost)
     }
-
-
-    
-
-    
-
     return {result: money, lost: lost};
 }
 
