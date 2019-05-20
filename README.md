@@ -22,7 +22,7 @@ intersect(A, B) // returns true
 
 ## Dice
 
-Contains 2 functions: dice calculateWinnings and calculateWinnings2
+Contains 2 functions: calculateWinnings and calculateWinnings2. Both receive the starting bet.
 
 Examples:
 
