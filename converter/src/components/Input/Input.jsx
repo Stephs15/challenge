@@ -25,8 +25,8 @@ const StyledSelect = styled.select `
     height: 46px;
     top: 0;
     right: 0;
-    border: 1px solid #00564d;
-    background-color: #00564d;
+    border: 1px solid #1098F7;
+    background-color: #1098F7;
     color: white;
     padding: 0 5px;
     border-radius: 0 3px 3px 0;
@@ -44,17 +44,16 @@ const StyledLabel = styled.label `
     margin-bottom: 5px;
 `
 
-const Input = ({error, defaultCurrency, handleSelectChange, labelText, children, ...other}) => {
+const Input = ({inputId, defaultCurrency, handleSelectChange, labelText, children, ...other}) => {
     return <>
-        <StyledLabel>{labelText}</StyledLabel>
+        <StyledLabel htmlFor={inputId} id={`${inputId}Label`}>{labelText}</StyledLabel>
         <InputContainer>
-            <StyledInput {...other}>{children}</StyledInput>
-            <StyledSelect value={defaultCurrency} onChange={handleSelectChange}>
+            <StyledInput id={inputId} {...other}>{children}</StyledInput>
+            <StyledSelect value={defaultCurrency} onChange={handleSelectChange} id={`${inputId}Select`} aria-labelledby={`${inputId}Label`}>
                 <option value="EUR">EUR</option>
                 <option value="USD">USD</option>
                 <option value="JPY">JPY</option>
             </StyledSelect>
-            {error}
         </InputContainer>
     </>
 }

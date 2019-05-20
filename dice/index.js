@@ -15,11 +15,13 @@ const getRandomNumber = () => Math.floor( Math.random() * 6 ) + 1;
         * If all money is lost we start over with 0.5
 */
 
-const getRandomNumber = () => Math.floor( Math.random() * 6 ) + 1;
-
 const calculateWinnings = (money) => {
     let lost = 0;
     for (let x = 0; x < 1000 ; x++) {
+        // If all money is lost then the bet is .5c otherwise all in
+        if(money <= 0)
+            money = 0.5;
+
         let number = getRandomNumber() +  getRandomNumber()
         switch(number) {
             case 12:
@@ -38,10 +40,6 @@ const calculateWinnings = (money) => {
             default:
                 break;
         }
-        
-        // If all money is lost then the bet is .5c otherwise all in
-        if(money <= 0)
-            money = 0.5;
     }
 
     return {result: money, lost: lost};
@@ -52,10 +50,11 @@ const calculateWinnings = (money) => {
         * Only bet 0.5 each time
         * If all money is lost we start over with 0.5
 */
-const calculateWinnings2 = (money, baseBet, times) => {
+const calculateWinnings2 = (money) => {
     let lost = 0;
+    baseBet = 0.5;
     
-    for (let x = 0; x < times ; x++) {
+    for (let x = 0; x < 1000 ; x++) {
         // If we ran out of money, start over with 0.5
         if(money <= 0)
             money = 0.5;
@@ -78,13 +77,17 @@ const calculateWinnings2 = (money, baseBet, times) => {
             default:
                 break;
         }
-        // console.log(number, money, lost)
     }
     return {result: money, lost: lost};
 }
 
-const playTheGame = (bet) => {
-    let res = calculateWinnings(bet);
+const playTheGame = (bet, type) => {
+    let res;
+    if(type === 1)
+        res = calculateWinnings(bet);
+    else
+        res = calculateWinnings2(bet);
+     
     console.log('Result: ', res.result)
     console.log('Lost: ', res.lost)
 }
